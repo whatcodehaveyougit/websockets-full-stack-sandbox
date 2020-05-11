@@ -1,68 +1,29 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#  Full stack sandbox
 
-## Available Scripts
+Challenges setting this up
 
-In the project directory, you can run:
+In the backend Employee Class I named the table "Employees" instead of employees, as a result the tables did not sync up.  This can be seen next to the @Entity annotation
 
-### `npm start`
+I used Spring Initialiser to create the project, once this was done I went into resources -> application.properties and added the database name of the database I created locally.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### The Back End
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+I first created the Employee class.  Next was EmployeeRepo, this inherits from the JPA Repository <Employee, Long>. Last was the Employee Controller, here I mapped the named of the URL route to the name of the table (both employees).  In this route I include the EmployeeRepository which will now show up as the JSON Api for this route. 
 
-### `npm test`
+### Dataloader
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To begin with some data I simply created a Dataloader with the @Component annotation.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# The Front End
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+To begin I used npx create-react-app client. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+I then created a Dashboard file and used useEffect to load in the data from the employees Api on page load.  
 
-### `npm run eject`
+Now the front end is serving data from the API.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+I had some problems with CORs, eventually I found the soluation which can be found in the file SpringGlobalConfig in the backend.  I still do have localhost:8080 though in the fetch which is not ideal.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+On the employee controller I included:
+@CrossOrigin(origins = "http://localhost:3000")
