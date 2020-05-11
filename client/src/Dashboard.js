@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import {BrowserRouter as Router, Route } from "react-router-dom"
+import Employees from './Employees.js'
 
 export default function Dashboard() {
     const [employees, setEmployees] = useState();
@@ -11,12 +13,16 @@ export default function Dashboard() {
         .catch(err => console.error);
     }, [])
 
-    return (
-        <>
-        { employees ? employees.map(employee => 
-            <li>{ employee.name}</li>
-        ) : "Nothing"}
-        </>
+
+return (
+    <>
+  <Router>
+        <h1>HomePage</h1> 
+     <Route exact path="/employees" render={() => <Employees employees={employees}  /> } />
+
+  </Router>
+
+  </>
      )
 
 }
