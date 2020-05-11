@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react'
 import {BrowserRouter as Router, Route } from "react-router-dom"
 import Employees from './Employees.js'
 
+
+const stompClient = require('./websocket-listener');
+
+// Follow the file structure of the example - that will show you whats what
+
+
 export default function Dashboard() {
     const [employees, setEmployees] = useState();
 
