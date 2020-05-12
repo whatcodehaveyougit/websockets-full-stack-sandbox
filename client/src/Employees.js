@@ -6,7 +6,7 @@ export default function Employees(props){
         <>
         <h1>Employees</h1>
         { props.employees ? props.employees.map(employee => 
-            <li>{ employee.name}</li>
+            <li key={employee.name}>{ employee.name}</li>
         ) : "Nothing"}
         </>
     )

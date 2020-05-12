@@ -1,5 +1,4 @@
 import com.codeclan.demo.Employee;
-import static com.codeclan.demo.WebSocketConfiguration.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
 @RepositoryEventHandler(Employee.class)
 public class EventHandler {
 
-    private static final String MESSAGE_PREFIX = "" ;
     private final SimpMessagingTemplate websocket;
 
     private final EntityLinks entityLinks;
@@ -27,19 +25,19 @@ public class EventHandler {
     @HandleAfterCreate
     public void newEmployee(Employee employee) {
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/newEmployee", getPath(employee));
+                 "/newEmployee", getPath(employee));
     }
 
     @HandleAfterDelete
     public void deleteEmployee(Employee employee) {
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/deleteEmployee", getPath(employee));
+                 "/deleteEmployee", getPath(employee));
     }
 
     @HandleAfterSave
     public void updateEmployee(Employee employee) {
         this.websocket.convertAndSend(
-                MESSAGE_PREFIX + "/updateEmployee", getPath(employee));
+                 "/updateEmployee", getPath(employee));
     }
 
     /**
